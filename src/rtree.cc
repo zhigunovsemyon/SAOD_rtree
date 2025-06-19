@@ -1,9 +1,14 @@
 #include "rtree.h"
 #include "rect.h"
 
+RTreeNode::RTreeNode(bool leaf)
+	: bounds{std::numeric_limits<double>::min(), std::numeric_limits<double>::lowest()}, isLeaf(leaf)
+{
+}
+
 void RTreeNode::recalculateBounds()
 {
-	bounds = Rect();
+	bounds = Rect{std::numeric_limits<double>::min(), std::numeric_limits<double>::lowest()};
 	if (isLeaf) {
 		for (auto const & obj : objects) {
 			bounds.expand(obj);
@@ -80,7 +85,7 @@ std::vector<Rect> RTree::searchRegion(Rect const & region)
 
 Rect RTree::nearestNeighbor(Point_2D const & point)
 {
-	Rect best;
+	Rect best{std::numeric_limits<double>::min(), std::numeric_limits<double>::lowest()};
 	double bestDist = std::numeric_limits<double>::max();
 	nearestNeighbor(root, point, best, bestDist);
 	return best;

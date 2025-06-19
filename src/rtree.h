@@ -11,7 +11,7 @@ public:
 	std::vector<std::shared_ptr<RTreeNode>> children;
 	std::vector<Rect> objects; // Только для листовых узлов
 
-	RTreeNode(bool leaf = false) : isLeaf(leaf) {}
+	RTreeNode(bool leaf = false);
 
 	// Добавляет дочерний узел (для нелистовых узлов)
 	void addChild(std::shared_ptr<RTreeNode> child);

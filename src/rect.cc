@@ -1,8 +1,6 @@
 #include "rect.h"
 #include <cmath>
 
-Rect::Rect() : min{std::numeric_limits<double>::min()}, max{std::numeric_limits<double>::lowest()} {}
-
 Rect::Rect(Point_2D const & min, Point_2D const & max) : min{min}, max{max} {}
 
 Rect::Rect(double x1, double y1, double x2, double y2)

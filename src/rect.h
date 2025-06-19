@@ -22,8 +22,6 @@ struct Point_2D {
 struct Rect {
 	Point_2D min, max;
 
-	Rect();
-
 	Rect(Point_2D const & min, Point_2D const & max);
 
 	Rect(double x1, double y1, double x2, double y2);
