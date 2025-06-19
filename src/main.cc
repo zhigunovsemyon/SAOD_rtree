@@ -9,13 +9,6 @@
 struct Point_2D {
 	double x, y;
 
-	auto operator<=>(Point_2D const & ot) const
-	{
-		auto x_cmp = this->x <=> ot.x;
-		auto y_cmp = this->y <=> ot.y;
-		return (x_cmp == 0) ? y_cmp : x_cmp;
-	}
-
 	bool operator==(Point_2D const & oth) const { return (this->x == oth.x) && (this->y == oth.y); }
 
 	bool operator!=(Point_2D const & oth) const { return !(*this == oth); }
