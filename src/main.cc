@@ -14,24 +14,25 @@ int main()
 	tree.insert(Rect(9, 9, 10, 10));
 
 	// Поиск по региону
-	std::cout << "Objects in region (2,2)-(5,5):\n";
-	auto results = tree.searchRegion(Rect(2, 2, 5, 5));
+	Rect region{2, 2, 5, 5};
+	std::cout << "Objects in region " << region << ":\n";
+	auto results = tree.searchRegion(region);
 	for (auto const & rect : results) {
 		std::cout << rect << '\n';
 	}
 
 	// Поиск точного совпадения
 	Rect exact(3, 3, 4, 4);
-	std::cout << "Exact search for (3,3)-(4,4): " << (tree.searchExact(exact) ? "Found" : "Not found") << "\n";
+	std::cout << "Exact search for " << exact << ": " << (tree.searchExact(exact) ? "Found" : "Not found") << "\n";
 
 	// Поиск ближайшего соседа
 	Point_2D point{4.5, 4.5};
 	auto nearest = tree.nearestNeighbor(point);
-	std::cout << "Nearest to (4.5,4.5): (" << nearest << '\n';
+	std::cout << "Nearest to " << point << ": " << nearest << '\n';
 
 	// Удаление объекта
 	tree.remove(exact);
-	std::cout << "After removal, exact search for (3,3)-(4,4): "
+	std::cout << "After removal, exact search for " << exact << ": "
 		  << (tree.searchExact(exact) ? "Found" : "Not found") << "\n";
 
 	return 0;
