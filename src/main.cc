@@ -3,6 +3,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <ostream>
 #include <vector>
 
 struct Point_2D {
@@ -22,14 +23,16 @@ struct Point_2D {
 	Point_2D(double n) : x{n}, y{n} {}
 
 	Point_2D(double x, double y) : x{x}, y{y} {}
+
+	friend std::ostream & operator<< (std::ostream & ost, Point_2D const & point)
+	{
+		return ost << '(' << point.x << ',' << point.y << ')';
+	}
 };
 
 // Структура для представления точки или прямоугольника
 struct Rect {
 	Point_2D min, max;
-
-	// double min[2]; // min x, min y
-	// double max[2]; // max x, max y
 
 	Rect() : min{std::numeric_limits<double>::min()}, max{std::numeric_limits<double>::lowest()} {}
 
@@ -86,6 +89,11 @@ struct Rect {
 		double dx = std::max({min.x - point.x, 0.0, point.x - max.x});
 		double dy = std::max({min.y - point.y, 0.0, point.y - max.y});
 		return std::sqrt(dx * dx + dy * dy);
+	}
+
+	friend std::ostream & operator<< (std::ostream & ost, Rect const & rect)
+	{
+		return ost << rect.min << '-' << rect.max;
 	}
 };
 
@@ -480,8 +488,7 @@ int main()
 	std::cout << "Objects in region (2,2)-(5,5):\n";
 	auto results = tree.searchRegion(Rect(2, 2, 5, 5));
 	for (auto const & rect : results) {
-		std::cout << "(" << rect.min.x << "," << rect.min.y << ")-(" << rect.max.x << "," << rect.max.y
-			  << ")\n";
+		std::cout << rect << '\n';
 	}
 
 	// Поиск точного совпадения
@@ -491,8 +498,7 @@ int main()
 	// Поиск ближайшего соседа
 	Point_2D point{4.5, 4.5};
 	auto nearest = tree.nearestNeighbor(point);
-	std::cout << "Nearest to (4.5,4.5): (" << nearest.min.x << "," << nearest.min.y << ")-(" << nearest.max.x << ","
-		  << nearest.max.y << ")\n";
+	std::cout << "Nearest to (4.5,4.5): (" << nearest << '\n';
 
 	// Удаление объекта
 	tree.remove(exact);
