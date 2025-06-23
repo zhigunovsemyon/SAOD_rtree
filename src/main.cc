@@ -15,7 +15,7 @@ int main()
 
 	// Поиск по региону
 	Rect region{2, 2, 5, 5};
-	std::cout << "Objects in region " << region << ":\n";
+	std::cout << "Объекты в регионе " << region << ":\n";
 	auto results = tree.searchRegion(region);
 	for (auto const & rect : results) {
 		std::cout << rect << '\n';
@@ -23,17 +23,17 @@ int main()
 
 	// Поиск точного совпадения
 	Rect exact(3, 3, 4, 4);
-	std::cout << "Exact search for " << exact << ": " << (tree.searchExact(exact) ? "Found" : "Not found") << "\n";
+	std::cout << "Поиск точного совпадения " << exact << ": " << (tree.searchExact(exact) ? "Найден" : "Не найден") << "\n";
 
 	// Поиск ближайшего соседа
 	Point_2D point{4.5, 4.5};
 	auto nearest = tree.nearestNeighbor(point);
-	std::cout << "Nearest to " << point << ": " << nearest << '\n';
+	std::cout << "Ближайший к " << point << ": " << nearest << '\n';
 
 	// Удаление объекта
 	tree.remove(exact);
-	std::cout << "After removal, exact search for " << exact << ": "
-		  << (tree.searchExact(exact) ? "Found" : "Not found") << "\n";
+	std::cout << "Удалён: " << exact << '\n';
+	std::cout << "Поиск точного совпадения " << exact << ": " << (tree.searchExact(exact) ? "Найден" : "Не найден") << "\n";
 
 	return 0;
 }
